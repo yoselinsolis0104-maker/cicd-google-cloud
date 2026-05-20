@@ -22,21 +22,18 @@ jobs:
       uses: google-github-actions/setup-gcloud@v2
 
     - name: Configurar Docker
-      run: gcloud auth configure-docker
+      run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
     - name: Construir imagen Docker
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/cicd-app .
-
+        docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cicd-app/cicd-app .
     - name: Subir imagen a Google Container Registry
       run: |
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/cicd-app
-
+       docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cicd-app/cicd-app
     - name: Desplegar en Cloud Run
       run: |
         gcloud run deploy cicd-app \
-          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/cicd-app \
+          --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cicd-app/cicd-app \
           --platform managed \
           --region us-central1 \
           --allow-unauthenticated
-          
