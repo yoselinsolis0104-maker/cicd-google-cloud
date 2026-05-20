@@ -3,6 +3,7 @@ const app = express();
 
 app.get('/', (req, res) => {
   res.send('Hola desde CI/CD con Google Cloud');
+  res.send('Pipeline funcionando correctamente');
 });
 
 const PORT = process.env.PORT || 8080;
